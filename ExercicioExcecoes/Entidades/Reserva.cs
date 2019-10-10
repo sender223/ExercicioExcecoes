@@ -1,4 +1,5 @@
 ﻿using System;
+using ExercicioExcecoes.Entidades.Exceptions;
 namespace ExercicioExcecoes.Entidades {
     class Reserva {
         public int NumeroQuarto { get; set; }
@@ -8,6 +9,13 @@ namespace ExercicioExcecoes.Entidades {
         public Reserva() { }
 
         public Reserva(int numeroQuarto, DateTime checkIn, DateTime checkOut) {
+
+            //se a data de checkIn for menor que agora e checkOut for menor que agora, vamos "lançar"
+            //uma nova exceção com o a Classe ExcecaoDeDominio dando como atributo a frase entre ().
+            if (checkOut <= checkIn) {
+                throw new ExcecaoDeDominio(" Data de Check-out deve ser posterior a Data de Check-In");
+            }
+
             NumeroQuarto = numeroQuarto;
             CheckIn = checkIn;
             CheckOut = checkOut;
@@ -21,27 +29,26 @@ namespace ExercicioExcecoes.Entidades {
             //de dias que ficou hospedado.
             return (int)duracao.TotalDays;
         }
-        //metodo para atualizar as dadas da diaria. MUDAMOS DE VOID PARA STRING o tipo do METODO
-        public string AtualizarDatas(DateTime checkIn, DateTime checkOut) {
+        //metodo volta a ser VOID para apenas atualizar os dados. 
+        public void AtualizarDatas(DateTime checkIn, DateTime checkOut) {
 
             //alem disso passamos a logica de verificação das datas dentro do nosso metodo. 
 
             DateTime now = DateTime.Now;
-            //se a data de checkIn for menor que agora e checkOut for menor que agora irá retornar o erro 
-            //que descrevemos
+            //se a data de checkIn for menor que agora e checkOut for menor que agora, vamos "lançar"
+            //uma nova exceção com o a Classe ExcecaoDeDominio dando como atributo a frase entre ().
             if (checkIn < now || checkOut < now) {
-                 return "Erro: As datas da reserva para atualizar devem ser futuras: ";
+                 throw new ExcecaoDeDominio(" As datas da reserva para atualizar devem ser futuras: ");
             }
-            //se a data de checkcOut for menor que a data de checkIn irá retornar o erro
-            //que descrevemos abaixo
+            //se a data de checkIn for menor que agora e checkOut for menor que agora, vamos "lançar"
+            //uma nova exceção com o a Classe ExcecaoDeDominio dando como atributo a frase entre ().
             if (checkOut <= checkIn) {
-                return "Erro na reserva: Data de Check-out deve ser posterior a Data de Check-In";
+                throw new ExcecaoDeDominio(" Data de Check-out deve ser posterior a Data de Check-In");
             }
-
             CheckIn = checkIn;
             CheckOut = checkOut;
-            //aqui vamos retornar nulo caso a função não encontrar nenhum erro. 
-            return null;
+            //e não precisamos retornar mais nada devido ao tipo VOID
+            //return null;
         }
 
         public override string ToString() {
