@@ -23,7 +23,7 @@ namespace ExercicioExcecoes.Entidades {
             //de dias que ficou hospedado.
             return (int)duracao.TotalDays;
         }
-
+        //metodo para atualizar as dadas da diaria.
         public void AtualizarDatas(DateTime checkIn, DateTime checkOut) {
             CheckIn = checkIn;
             CheckOut = checkOut;
