@@ -25,16 +25,12 @@ namespace ExercicioExcecoes {
                 Console.Write("Data de Check-out (dd/MM/yyyy): ");
                 checkOut = DateTime.Parse(Console.ReadLine());
 
-                DateTime now = DateTime.Now;
+                string error = reserva.AtualizarDatas(checkIn, checkOut);
 
-                if (checkIn < now || checkOut < now) {
-                    Console.WriteLine("Erro: As datas da reserva para atualizar devem ser futuras: ");
+                if(error != null) {
+                    Console.WriteLine(error);
                 }
-                else if (checkOut <= checkIn) {
-                    Console.WriteLine("Erro na reserva: Data de Check-out deve ser posterior a Data de Check-In");
-                }
-                else {
-                    reserva.AtualizarDatas(checkIn, checkOut);
+                else {                    
                     Console.WriteLine("Reserva: " + reserva);
                 }
             }
